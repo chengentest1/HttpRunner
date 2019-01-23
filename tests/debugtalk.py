@@ -7,13 +7,13 @@ import time
 from tests.api_server import HTTPBIN_SERVER, gen_md5, get_sign
 
 BASE_URL = "http://127.0.0.1:5000"
-
+#得到Httpbin url
 def get_httpbin_server():
     return HTTPBIN_SERVER
-
+#得到默认HOST
 def get_base_url():
     return BASE_URL
-
+#得到请求头中URL,hearders
 def get_default_request():
     return {
         "base_url": BASE_URL,
@@ -24,7 +24,7 @@ def get_default_request():
 
 def sum_two(m, n):
     return m + n
-
+#得到状态，并验证
 def sum_status_code(status_code, expect_sum):
     """ sum status code digits
         e.g. 400 => 4, 201 => 3
@@ -34,35 +34,35 @@ def sum_status_code(status_code, expect_sum):
         sum_value += int(digit)
 
     assert sum_value == expect_sum
-
+#验证状态是否200
 def is_status_code_200(status_code):
     return status_code == 200
 
 os.environ["TEST_ENV"] = "PRODUCTION"
-
+#测试 环境
 def skip_test_in_production_env():
     """ skip this test in production environment
     """
     return os.environ["TEST_ENV"] == "PRODUCTION"
-
+#手机系统
 def get_user_agent():
     return ["iOS/10.1", "iOS/10.2"]
-
+#手机版本
 def gen_app_version():
     return [
         {"app_version": "2.8.5"},
         {"app_version": "2.8.6"}
     ]
-
+#用户信息字典类型
 def get_account():
     return [
         {"username": "user1", "password": "111111"},
         {"username": "user2", "password": "222222"}
     ]
-
+#用户信息元组类型
 def get_account_in_tuple():
     return [("user1", "111111"), ("user2", "222222")]
-
+#随机字符长度
 def gen_random_string(str_len):
     random_char_list = []
     for _ in range(str_len):

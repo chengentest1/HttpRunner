@@ -14,7 +14,7 @@ from httprunner import exceptions, logger, parser, utils, validator
 ###############################################################################
 ##   file loader
 ###############################################################################
-
+#验证case文件是否空，是否是列表，字典
 def _check_format(file_path, content):
     """ check testcase format if valid
     """
@@ -31,7 +31,7 @@ def _check_format(file_path, content):
         logger.log_error(err_msg)
         raise exceptions.FileFormatError(err_msg)
 
-
+#加载yaml文件
 def load_yaml_file(yaml_file):
     """ load yaml file and check file content format
     """
@@ -40,7 +40,7 @@ def load_yaml_file(yaml_file):
         _check_format(yaml_file, yaml_content)
         return yaml_content
 
-
+#加载Json文件
 def load_json_file(json_file):
     """ load json file and check file content format
     """
@@ -89,11 +89,11 @@ def load_csv_file(csv_file):
 
     return csv_content_list
 
-
+#加载case文件
 def load_file(file_path):
     if not os.path.isfile(file_path):
         raise exceptions.FileNotFound("{} does not exist.".format(file_path))
-
+     #获取文件的后缀名
     file_suffix = os.path.splitext(file_path)[1].lower()
     if file_suffix == '.json':
         return load_json_file(file_path)
@@ -186,10 +186,10 @@ def load_dot_env_file(dot_env_path):
 
             env_variables_mapping[variable.strip()] = value.strip()
 
-    utils.set_os_environ(env_variables_mapping)
+    # utils.set_os_environ(env_variables_mapping)
     return env_variables_mapping
 
-
+#返回文件的绝对的路径
 def locate_file(start_path, file_name):
     """ locate filename and return absolute file path.
         searching will be recursive upward until current working directory.
@@ -204,8 +204,10 @@ def locate_file(start_path, file_name):
         exceptions.FileNotFound: If failed to locate file.
 
     """
+    #判断是不是文件
     if os.path.isfile(start_path):
         start_dir_path = os.path.dirname(start_path)
+    #判断是不是目录名
     elif os.path.isdir(start_path):
         start_dir_path = start_path
     else:
@@ -227,6 +229,8 @@ def locate_file(start_path, file_name):
 ##   debugtalk.py module loader
 ###############################################################################
 
+
+#返回功能模块
 def load_module_functions(module):
     """ load python module functions.
 
@@ -250,14 +254,14 @@ def load_module_functions(module):
 
     return module_functions
 
-
+#返回buitlt_in的方法
 def load_builtin_functions():
     """ load built_in module functions
     """
     from httprunner import built_in
     return load_module_functions(built_in)
 
-
+#返回debugtalk中的函数
 def load_debugtalk_functions():
     """ load project debugtalk.py module functions
         debugtalk.py should be located in project working directory.
@@ -313,7 +317,7 @@ def __extend_with_api_ref(raw_testinfo):
     except KeyError:
         raise exceptions.ApiNotFound("{} not found!".format(api_name))
 
-
+################################################################################################################3
 def __extend_with_testcase_ref(raw_testinfo):
     """ extend with testcase reference
     """
@@ -539,7 +543,7 @@ def load_test_file(path):
 
     return loaded_content
 
-
+#字典类型的debugtalk.py的路径
 def load_folder_content(folder_path):
     """ load api/testcases/testsuites definitions from folder.
 
@@ -663,6 +667,7 @@ def load_project_tests(test_path, dot_env_path=None):
     debugtalk_path = locate_debugtalk_py(test_path)
 
     if debugtalk_path:
+
         # The folder contains debugtalk.py will be treated as PWD.
         project_working_directory = os.path.dirname(debugtalk_path)
     else:
@@ -680,6 +685,7 @@ def load_project_tests(test_path, dot_env_path=None):
     project_mapping["env"] = load_dot_env_file(dot_env_path)
 
     if debugtalk_path:
+
         # load debugtalk.py functions
         debugtalk_functions = load_debugtalk_functions()
     else:
@@ -687,7 +693,9 @@ def load_project_tests(test_path, dot_env_path=None):
 
     # locate PWD and load debugtalk.py functions
 
+    #项目路径
     project_mapping["PWD"] = project_working_directory
+    #debugtalk.py中有那些方法
     project_mapping["functions"] = debugtalk_functions
 
     # load api

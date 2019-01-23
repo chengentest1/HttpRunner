@@ -7,6 +7,7 @@ from httprunner import (exceptions, loader, logger, parser, report, runner,
                         utils, validator)
 
 
+
 class HttpRunner(object):
 
     def __init__(self, failfast=False, save_tests=False, report_template=None, report_dir=None,
