@@ -562,8 +562,9 @@ def load_folder_content(folder_path):
 
     """
     items_mapping = {}
-
+                      #返回文件夹中测试用例列表（yaml,json格式）
     for file_path in load_folder_files(folder_path):
+                                   #加载每个文件
         items_mapping[file_path] = load_file(file_path)
 
     return items_mapping
