@@ -194,7 +194,7 @@ class HttpRunner(object):
         )
 
         return report_path
-
+    #增加test_path,返回字典。--用例，方法
     def run_path(self, path, dot_env_path=None, mapping=None):
         """ run testcase/testsuite file or folder.
 
