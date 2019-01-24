@@ -1,7 +1,7 @@
 from httprunner.loader import load_folder_content, load_folder_files, load_api_folder
 from httprunner import exceptions, logger
 import os
-name_path='E:/HttpRunner/tests/api'
+name_path='C:/Users/cheng/PycharmProjects/HttpRunner/tests/api'
 r=load_folder_content(name_path)
 print(r)
 # print("=========")

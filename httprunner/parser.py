@@ -27,7 +27,7 @@ def parse_string_value(str_value):
         # e.g. $var, ${func}
         return str_value
 
-
+#提取变量
 def extract_variables(content):
     """ extract all variable names from content, which is in format $variable
 
@@ -57,7 +57,7 @@ def extract_variables(content):
     except TypeError:
         return []
 
-
+#提取功能
 def extract_functions(content):
     """ extract all functions from string content, which are in format ${fun()}
 
@@ -89,7 +89,7 @@ def extract_functions(content):
     except TypeError:
         return []
 
-
+#解析功能
 def parse_function(content):
     """ parse function name and args from string content.
 
