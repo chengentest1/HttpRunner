@@ -543,7 +543,7 @@ def load_test_file(path):
 
     return loaded_content
 
-#字典类型的debugtalk.py的路径
+#加载所有的case的文件
 def load_folder_content(folder_path):
     """ load api/testcases/testsuites definitions from folder.
 
@@ -569,7 +569,7 @@ def load_folder_content(folder_path):
 
     return items_mapping
 
-
+#和load_folder_content功能一样。
 def load_api_folder(api_folder_path):
     """ load api definitions from api folder.
 
@@ -648,7 +648,7 @@ def locate_debugtalk_py(start_path):
         debugtalk_path = locate_file(start_path, "debugtalk.py")
     except exceptions.FileNotFound:
         debugtalk_path = None
-
+    locate_file
     return debugtalk_path
 
 
