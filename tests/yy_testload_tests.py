@@ -1,9 +1,11 @@
+import copy
+
 from httprunner import loader, utils, parser
 
 from httprunner.loader import load_tests
 from httprunner.parser import parse_tests, _parse_testsuite, _parse_testcase, __parse_config, parse_data
 
-pp='C:/Users/cheng/PycharmProjects/HttpRunner/tests/data/demo_testcase.yml'
+pp='E:/HttpRunner/tests/data/demo_testcase.yml'
 # yu=load_tests(pp)
 # print(yu)
 
@@ -26,7 +28,7 @@ parsed_tests_mapping = {
             "project_mapping": project_mapping,
             "testcases": []
         }
-''''
+'''
 for key,volue in tests_mapping.items():
     print(key,">>>>>>>>>============")
     print(volue,"???????======")
@@ -34,10 +36,11 @@ tease=tests_mapping["testcases"]
 print("lllllllllllllllllhhhhhhhhhhhh")
 print(tease[0]['config'])
 print("ooooooooooooyyeeeeeeeeeeeeeeeeeeeee")
-ttte=tease.setdefault("config", {})
+ttte=tease[0].setdefault("config", {})
 print(ttte)
-# print(tests_mapping)
 '''
+# print(tests_mapping)
+
 for test_type in tests_mapping:
     if test_type == "testsuites":
         testsuites = tests_mapping["testsuites"]
@@ -45,11 +48,17 @@ for test_type in tests_mapping:
         for config1 in tests_mapping["testcases"]:
             config1.setdefault("config", {})
             config=config1['config']
-            print(config1,"==================")
+            print("mmmmmmmmmmmmmmmmmmmmmmmmmmm",config1)
+            print('"=================="',config)
             print(project_mapping)
             raw_config_variables = config.pop("variables", {})
             print("====radddd==============",raw_config_variables)
+            raw_config_variables_mapping = utils.ensure_mapping_format(raw_config_variables)
 
+
+
+
+            override_variables = utils.deepcopy_dict(project_mapping.get("variables", {}))
 
 #             testsuites = tests_mapping["testsuites"]
 #             for testsuite in testsuites:
